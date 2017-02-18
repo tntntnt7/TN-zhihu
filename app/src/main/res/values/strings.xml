@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">TN-zhihu</string>
+
+    <string name="ma_toolbar_title">首页</string>
+    <string name="ma_toolbar_item1">今日新闻</string>
+    <string name="ma_menu_change_mode_day">日间模式</string>
+    <string name="ma_menu_change_mode_night">夜间模式</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+</resources>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="110dp"
+    android:background="@color/TN_colorPrimary">
+
+    <ImageView
+        android:layout_margin="10dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        />
+
+    <com.example.tntntnt.tn_zhihu.ui.view.MyImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/home"
+        android:background="@color/colorAccent"/>
+
+</LinearLayout>
