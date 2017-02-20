@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.tntntnt.tn_zhihu.R;
@@ -16,9 +15,9 @@ import com.example.tntntnt.tn_zhihu.api.RecyclerMA;
 import com.example.tntntnt.tn_zhihu.bean.BeanBanner;
 import com.example.tntntnt.tn_zhihu.bean.BeanMAItemA;
 import com.example.tntntnt.tn_zhihu.bean.BeanMAItemB;
+import com.example.tntntnt.tn_zhihu.util.AllAboutDate;
 import com.sivin.Banner;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,7 +28,7 @@ public class MAAdapter extends RecyclerView.Adapter<MAAdapter.MAHolder> {
 
     public Context mContext;
 
-    public List<Object> objectList = new ArrayList<>();
+//    public List<Object> objectList = new ArrayList<>();
 
     private List<RecyclerMA> list;
     public List<BeanBanner> listB;
@@ -39,10 +38,11 @@ public class MAAdapter extends RecyclerView.Adapter<MAAdapter.MAHolder> {
         mContext = context;
         this.listB = listB;
 
-        objectList.add(0);//占位，随便添加一个元素到objectList
-        for (int i = 0; i < list.size(); i++){
-            objectList.add(list.get(i));
-        }
+//        objectList.add(0);//占位，随便添加一个元素到objectList
+//        for (int i = 0; i < list.size(); i++){
+//            objectList.add(list.get(i));
+//            Log.d("TTTS", "" + objectList.size());
+//        }
     }
 
     @Override
@@ -65,10 +65,15 @@ public class MAAdapter extends RecyclerView.Adapter<MAAdapter.MAHolder> {
 
     @Override
     public void onBindViewHolder(MAHolder holder, int position) {
+//        if (position == 0){
+//            holder.onBindHead(objectList.get(position));
+//        } else {
+//            holder.onBind(objectList.get(position));
+//        }
         if (position == 0){
-            holder.onBindHead(objectList.get(position));
+            holder.onBindHead(0);
         } else {
-            holder.onBind(objectList.get(position));
+            holder.onBind(list.get(position - 1), position);
         }
     }
 
@@ -81,21 +86,15 @@ public class MAAdapter extends RecyclerView.Adapter<MAAdapter.MAHolder> {
     public int getItemViewType(int position){
         if (position == 0){
             return 0;
-
-            //return ((RecyclerMA)(objectList.get(2))).getViewType();
         } else {
-            return ((RecyclerMA)(objectList.get(position))).getViewType();
-        }
-//        if (position > 0){
 //            return ((RecyclerMA)(objectList.get(position))).getViewType();
-//        } else {
-//            return 2;
-//        }
+            return (list.get(position - 1)).getViewType();
+        }
     }
 
 
     /**
-     *
+     * ViewHolder
      */
     class MAHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
@@ -119,8 +118,6 @@ public class MAAdapter extends RecyclerView.Adapter<MAAdapter.MAHolder> {
         public MAHolder(View itemView) {
             super(itemView);
             switch (itemView.getId()){
-//                case R.id.id_banner:
-//                    banner = (Banner)itemView.findViewById(R.id.id_banner);
                 case R.id.item_1_textView:
                     title = (TextView)itemView.findViewById(R.id.item_1_textView);
                 case R.id.item_2:
@@ -133,7 +130,7 @@ public class MAAdapter extends RecyclerView.Adapter<MAAdapter.MAHolder> {
         }
 
         public void onBindHead(Object object){
-            if ((int)object == 0){
+            if ((int)object == 0 && listB != null){
                 banner.setBannerAdapter(new BannerAdapter(listB, mContext));
                 banner.setOnBannerItemClickListener(new Banner.OnBannerItemClickListener() {
                     @Override
@@ -145,11 +142,17 @@ public class MAAdapter extends RecyclerView.Adapter<MAAdapter.MAHolder> {
             }
         }
 
-        public void onBind(Object object){
+        public void onBind(Object object, int position){
             if (object instanceof RecyclerMA){
                 recyclerMA = (RecyclerMA) object;
                 if (recyclerMA instanceof BeanMAItemA){
-                    title.setText(((BeanMAItemA) recyclerMA).getTitle());
+                    if (position == 1){
+                        title.setText("今日热闻");
+                    } else {
+                        String dateTitle = ((BeanMAItemA) recyclerMA).getTitle();
+
+                        title.setText(AllAboutDate.getWeek(dateTitle));
+                    }
                 } else if (recyclerMA instanceof BeanMAItemB) {
                     mTitle.setText(((BeanMAItemB) recyclerMA).getTitle());
                     Glide.with(mContext)

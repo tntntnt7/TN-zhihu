@@ -8,8 +8,8 @@
     android:layout_marginRight="8dp"
     android:layout_marginBottom="8dp"
     android:translationZ="-1dp"
-    android:stateListAnimator="@animator/cardview_anim"
     android:background="?android:attr/selectableItemBackground">
+    <!--android:stateListAnimator="@animator/cardview_anim"-->
 
     <LinearLayout
         android:layout_width="match_parent"
