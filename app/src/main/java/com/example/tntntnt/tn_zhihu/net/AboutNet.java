@@ -37,29 +37,29 @@ public class AboutNet {
         }
     }
 
-    public String get(final Activity activity, final TextView textView, String url){
-        request = new Request.Builder().url(url).build();
-        Call call = client.newCall(request);
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                s = response.body().string();
-                Log.d(">>>", s);
-
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        textView.setText(s);
-                    }
-                });
-            }
-        });
-
-        return s;
-    }
+//    public String get(final Activity activity, final TextView textView, String url){
+//        request = new Request.Builder().url(url).build();
+//        Call call = client.newCall(request);
+//        call.enqueue(new Callback() {
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//
+//            }
+//
+//            @Override
+//            public void onResponse(Call call, Response response) throws IOException {
+//                s = response.body().string();
+//                Log.d(">>>", s);
+//
+//                activity.runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        textView.setText(s);
+//                    }
+//                });
+//            }
+//        });
+//
+//        return s;
+//    }
 }

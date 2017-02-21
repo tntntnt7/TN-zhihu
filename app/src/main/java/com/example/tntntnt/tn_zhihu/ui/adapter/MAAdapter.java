@@ -1,6 +1,7 @@
 package com.example.tntntnt.tn_zhihu.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +16,8 @@ import com.example.tntntnt.tn_zhihu.api.RecyclerMA;
 import com.example.tntntnt.tn_zhihu.bean.BeanBanner;
 import com.example.tntntnt.tn_zhihu.bean.BeanMAItemA;
 import com.example.tntntnt.tn_zhihu.bean.BeanMAItemB;
+import com.example.tntntnt.tn_zhihu.ui.activity.Main2Activity;
+import com.example.tntntnt.tn_zhihu.ui.activity.MainActivity;
 import com.example.tntntnt.tn_zhihu.util.AllAboutDate;
 import com.sivin.Banner;
 
@@ -26,9 +29,10 @@ import java.util.List;
 
 public class MAAdapter extends RecyclerView.Adapter<MAAdapter.MAHolder> {
 
+    public final String STORY_URL = "http://daily.zhihu.com/story/";
+
     public Context mContext;
 
-//    public List<Object> objectList = new ArrayList<>();
 
     private List<RecyclerMA> list;
     public List<BeanBanner> listB;
@@ -38,11 +42,6 @@ public class MAAdapter extends RecyclerView.Adapter<MAAdapter.MAHolder> {
         mContext = context;
         this.listB = listB;
 
-//        objectList.add(0);//占位，随便添加一个元素到objectList
-//        for (int i = 0; i < list.size(); i++){
-//            objectList.add(list.get(i));
-//            Log.d("TTTS", "" + objectList.size());
-//        }
     }
 
     @Override
@@ -65,11 +64,6 @@ public class MAAdapter extends RecyclerView.Adapter<MAAdapter.MAHolder> {
 
     @Override
     public void onBindViewHolder(MAHolder holder, int position) {
-//        if (position == 0){
-//            holder.onBindHead(objectList.get(position));
-//        } else {
-//            holder.onBind(objectList.get(position));
-//        }
         if (position == 0){
             holder.onBindHead(0);
         } else {
@@ -87,7 +81,6 @@ public class MAAdapter extends RecyclerView.Adapter<MAAdapter.MAHolder> {
         if (position == 0){
             return 0;
         } else {
-//            return ((RecyclerMA)(objectList.get(position))).getViewType();
             return (list.get(position - 1)).getViewType();
         }
     }
@@ -135,7 +128,7 @@ public class MAAdapter extends RecyclerView.Adapter<MAAdapter.MAHolder> {
                 banner.setOnBannerItemClickListener(new Banner.OnBannerItemClickListener() {
                     @Override
                     public void onItemClick(int position) {
-                        goNews();
+                        goNews(STORY_URL + listB.get(position).getId());
                     }
                 });
                 banner.notifiDataHasChanged();
@@ -150,7 +143,6 @@ public class MAAdapter extends RecyclerView.Adapter<MAAdapter.MAHolder> {
                         title.setText("今日热闻");
                     } else {
                         String dateTitle = ((BeanMAItemA) recyclerMA).getTitle();
-
                         title.setText(AllAboutDate.getWeek(dateTitle));
                     }
                 } else if (recyclerMA instanceof BeanMAItemB) {
@@ -170,13 +162,15 @@ public class MAAdapter extends RecyclerView.Adapter<MAAdapter.MAHolder> {
              * 只针对cardView点击
              */
             if (v.getId() == R.id.item_2){
-                goNews();
+                if (recyclerMA instanceof BeanMAItemB){
+                    Main2Activity.newInstance(mContext, STORY_URL + ((BeanMAItemB) recyclerMA).getId());
+                }
             }
         }
 
-        public void goNews(){
-            //TODO 进入新闻详情页
+        public void goNews(String url){
             Log.d("GO", "news");
+            Main2Activity.newInstance(mContext, url);
         }
     }
 }

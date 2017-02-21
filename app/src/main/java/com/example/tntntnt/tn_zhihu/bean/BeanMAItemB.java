@@ -1,5 +1,7 @@
 package com.example.tntntnt.tn_zhihu.bean;
 
+import android.os.Parcel;
+
 import com.example.tntntnt.tn_zhihu.api.RecyclerMA;
 
 import java.util.List;
@@ -89,5 +91,15 @@ public class BeanMAItemB implements RecyclerMA {
     @Override
     public int getViewType() {
         return viewType;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
     }
 }

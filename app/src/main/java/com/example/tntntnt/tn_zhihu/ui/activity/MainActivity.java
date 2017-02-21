@@ -1,8 +1,10 @@
 package com.example.tntntnt.tn_zhihu.ui.activity;
 
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Message;
+import android.os.Parcelable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -16,6 +18,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,9 +28,11 @@ import com.example.tntntnt.tn_zhihu.api.RecyclerMA;
 import com.example.tntntnt.tn_zhihu.bean.BeanBanner;
 import com.example.tntntnt.tn_zhihu.bean.BeanMAItemA;
 import com.example.tntntnt.tn_zhihu.bean.BeanMAItemB;
+import com.example.tntntnt.tn_zhihu.net.AboutJson;
 import com.example.tntntnt.tn_zhihu.net.AboutNet;
 import com.example.tntntnt.tn_zhihu.ui.adapter.MAAdapter;
 import com.example.tntntnt.tn_zhihu.util.AllAboutDate;
+import com.example.tntntnt.tn_zhihu.util.ListAddList;
 import com.example.tntntnt.tn_zhihu.util.NetConnectionState;
 import com.google.gson.Gson;
 
@@ -35,6 +40,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -49,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private SwipeRefreshLayout mSwipeRefresh;
     private RecyclerView mMARecycler;
     private MAAdapter maAdapter;
+    private LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
 
     /**data*/
     private List<RecyclerMA> mListRMA = new ArrayList<>();
@@ -86,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,16 +100,12 @@ public class MainActivity extends AppCompatActivity {
 
         initView();
 
-        //mSwipeRefresh.setRefreshing(true);
-
         if (NetConnectionState.isConnected(this)){
             initData(0);
         } else {
-            Toast.makeText(MainActivity.this, "未连接网络", Toast.LENGTH_SHORT).show();
-        }
+            Toast.makeText(MainActivity.this, "未连接网络", Toast.LENGTH_SHORT).show();}
 
         initRecyclerListener();
-
     }
 
 
@@ -118,9 +120,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
+                /**
+                 * 滑动到底部的监听
+                 */
                 if (mMARecycler.computeVerticalScrollExtent() + mMARecycler.computeVerticalScrollOffset()
                         == mMARecycler.computeVerticalScrollRange()){
-                    //TODO 滑动到底部
                     Log.d("mMARecycler", "滑动到底部");
                     if (NetConnectionState.isConnected(getApplicationContext())){
                         initData(1);
@@ -128,125 +132,54 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "未连接网络", Toast.LENGTH_SHORT).show();
                     }
                 }
+
+                //mMARecycler.getAdapter().getItemViewType();
+
             }
         });
 
-
+        //TODO 添加监听器修改toolbar标题
     }
 
-    private String jsonString = null;
-    private void initData(int i) {
-        switch (i){
-            case 0:
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Gson gson = new Gson();
+    private void initData(final int i) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    switch (i){
+                        case 0:
+                            mListRMA.clear();
+                            mListBanner.clear();
 
-                            jsonString = AboutNet.getJSONString("http://news-at.zhihu.com/api/4/news/latest");
-                            JSONObject jsonObject = new JSONObject(jsonString);
-                            /**日期*/
-                            String date = jsonObject.getString("date");
-                            //Log.d("Data", "date: " + date);
-                            mListRMA.add(new BeanMAItemA(date));
-                            //初始化今日日期
-                            dayByDay = new Integer(date);
-                            Log.d("DAYBYDAY2", "is " + dayByDay);
+                            BeanMAItemA beanMAItemA = AboutJson.decodeBeanMAItemA(0);
+                            mListRMA.add(beanMAItemA);
+                            dayByDay = new Integer(beanMAItemA.getTitle());
 
-                            /**当日stories*/
-                            JSONArray jsonArrayStories = jsonObject.getJSONArray("stories");
-                            String stories = jsonArrayStories.toString();
-                            //Log.d("Data", "stories: " + stories);
+                            List<RecyclerMA> itemAList = (AboutJson.decodeRecyclerMA(0, 0));
+                            ListAddList.add(mListRMA, itemAList);
 
-                            for (int i = 0; i < jsonArrayStories.length(); i++){
-                                String story = jsonArrayStories.get(i).toString();
-                                //添加除images之外的内容
-                                mListRMA.add(gson.fromJson(story, BeanMAItemB.class));
-                                //Log.d("Data", "story: " + story);
-                                //添加images数组里面的imageUri，虽然images数组里面只有一个imageUri...
-                                JSONObject oneStroy = jsonArrayStories.getJSONObject(i);
-                                JSONArray img = oneStroy.getJSONArray("images");
-                                String imge = img.getString(0);
-                                Log.d("Data", "image: " + imge);
-                                ((BeanMAItemB)mListRMA.get(i + 1)).setImgUri(imge);
-                            }
-
-                            Log.d("List", "mListRMA.size() = " + mListRMA.size());
-                            Log.d("Data", "stories num = " + jsonArrayStories.length());
-
-                            /**当日top_stories*/
-                            JSONArray jsonArrayTopStories = jsonObject.getJSONArray("top_stories");
-                            String topStories = jsonArrayTopStories.toString();
-                            //Log.d("Data", "topStories: " + topStories);
-                            for (int i = 0; i < jsonArrayTopStories.length(); i++){
-                                String topStory = jsonArrayTopStories.get(i).toString();
-                                mListBanner.add(gson.fromJson(topStory, BeanBanner.class));
-                                //Log.d("Data", "BeanBanner: " + (gson.fromJson(topStory, BeanBanner.class)).toString());
-                            }
-                            Log.d("List", "mListBanner.size() = " + mListBanner.size());
+                            List<RecyclerMA> bannerList = (AboutJson.decodeRecyclerMA(0, 1));
+                            ListAddList.addBanner(mListBanner, bannerList);
 
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    maAdapter = new MAAdapter(mListRMA, getApplicationContext(), mListBanner);
-
+                                    maAdapter = new MAAdapter(mListRMA, MainActivity.this, mListBanner);
                                     mMARecycler.setAdapter(maAdapter);
 
-                                    maAdapter.notifyDataSetChanged();
-
+                                    //maAdapter.notifyDataSetChanged();
                                     mSwipeRefresh.setRefreshing(false);
                                 }
                             });
-                        } catch (IOException e){
-                            e.printStackTrace();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }).start();
-                break;
-            case 1:
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Gson gson = new Gson();
+                            break;
+                        case 1:
+                            BeanMAItemA beanMAItemA1 = AboutJson.decodeBeanMAItemA(dayByDay);
+                            mListRMA.add(beanMAItemA1);
 
-                            /**
-                             * before/ + dayByDay 显示dayByDay前一天的内容
-                             */
-                            jsonString = AboutNet.getJSONString("http://news-at.zhihu.com/api/4/news/before/" + dayByDay);
-                            JSONObject jsonObject = new JSONObject(jsonString);
-                            /**日期*/
-                            String date = jsonObject.getString("date");
-                            //Log.d("Data", "date: " + date);
-                            mListRMA.add(new BeanMAItemA(date));
-                            //
-                            dayByDay = new Integer(date);
+                            List<RecyclerMA> itemAList1 = (AboutJson.decodeRecyclerMA(dayByDay, 0));
+                            ListAddList.add(mListRMA, itemAList1);
 
-                            /**当日stories*/
-                            JSONArray jsonArrayStories = jsonObject.getJSONArray("stories");
-                            String stories = jsonArrayStories.toString();
-                            //Log.d("Data", "stories: " + stories);
-
-                            //记录当前mListRMA大小以便正确位置添加数据
-                            int mListRMA_lastSize = mListRMA.size();
-                            for (int i = 0; i < jsonArrayStories.length(); i++){
-                                String story = jsonArrayStories.get(i).toString();
-                                //添加除images之外的内容
-                                mListRMA.add(gson.fromJson(story, BeanMAItemB.class));
-                                //Log.d("Data", "story: " + story);
-                                //添加images数组里面的imageUri，虽然images数组里面只有一个imageUri...
-                                JSONObject oneStroy = jsonArrayStories.getJSONObject(i);
-                                JSONArray img = oneStroy.getJSONArray("images");
-                                String imge = img.getString(0);
-                                Log.d("Data", "image: " + imge);
-                                ((BeanMAItemB)mListRMA.get(i + 1 + mListRMA_lastSize - 1)).setImgUri(imge);
-                            }
-
-                            Log.d("List", "mListRMA.size() = " + mListRMA.size());
-                            Log.d("Data", "stories num = " + jsonArrayStories.length());
+                            dayByDay = new Integer(beanMAItemA1.getTitle());
 
                             runOnUiThread(new Runnable() {
                                 @Override
@@ -254,16 +187,13 @@ public class MainActivity extends AppCompatActivity {
                                     maAdapter.notifyDataSetChanged();
                                 }
                             });
-
-                        } catch (IOException e){
-                            e.printStackTrace();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                            break;
                     }
-                }).start();
-                break;
-        }
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     private void initView() {
@@ -307,16 +237,12 @@ public class MainActivity extends AppCompatActivity {
 
         /**swipeRefresh部分*/
         mSwipeRefresh = (SwipeRefreshLayout)findViewById(R.id.ma_swipe_refresh);
-        mSwipeRefresh.setColorSchemeColors(Color.RED, Color.GREEN, Color.BLUE);
+        mSwipeRefresh.setColorSchemeColors(getResources().getColor(R.color.TN_colorPrimary));
         mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 //触出发下拉刷新时会运行这里
                 if (NetConnectionState.isConnected(MainActivity.this)){
-                    //TODO 刷新数据
-                    mListRMA.clear();
-                    mListBanner.clear();
-
                     initData(0);
                 } else {
                     mSwipeRefresh.setRefreshing(false);
@@ -328,11 +254,6 @@ public class MainActivity extends AppCompatActivity {
 
         /**MARecycler*/
         mMARecycler = (RecyclerView)findViewById(R.id.ma_recycle_view);
-        mMARecycler.setLayoutManager(new LinearLayoutManager(this));
-
-//        maAdapter = new MAAdapter(mListRMA, getApplicationContext(), mListBanner);
-//
-//        mMARecycler.setAdapter(maAdapter);
-
+        mMARecycler.setLayoutManager(linearLayoutManager);
     }
 }

@@ -399,7 +399,10 @@ public class Banner extends RelativeLayout {
         for (int i = 0; i < mPointContainerLl.getChildCount(); i++) {
             mPointContainerLl.getChildAt(i).setEnabled(false);
         }
+
+
         mPointContainerLl.getChildAt(newCurrentPoint).setEnabled(true);
+
 
         if (mTipTextView != null) {
             mBannerAdapter.selectTips(mTipTextView, currentPosition);

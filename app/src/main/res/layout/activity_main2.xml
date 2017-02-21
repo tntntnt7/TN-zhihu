@@ -4,26 +4,26 @@
     android:id="@+id/activity_main2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.tntntnt.tn_zhihu.ui.activity.Main2Activity">
 
-    <TextView
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/ma_2_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="sduwheuhwieuhfuwiehfiwef"/>
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:translationZ="5dp">
+    </android.support.v7.widget.Toolbar>
 
-    <com.sivin.Banner
-        android:id="@+id/id_banner"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/ma_2_swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/TN_colorPrimary"
-        app:banner_pointContainerLeftRightPadding="10dp"
-        app:banner_pointTopBottomMargin="6dp"
-        app:banner_pointLeftRightMargin="3dp"
-        app:banner_pointGravity="center_horizontal"
-        app:banner_pointContainerBackground="@android:color/transparent"
-        app:banner_pointDrawable="@drawable/selector_banner_point"
-        app:banner_pointAutoPlayInterval="3"
-        app:banner_pageChangeDuration="300"/>
+        android:layout_below="@id/ma_2_toolbar">
+
+        <WebView
+            android:id="@+id/web_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </RelativeLayout>

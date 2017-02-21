@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">TN-zhihu</string>
+    <string name="app_name">知乎日报-TN</string>
 
+    <!--MainActivity-->
     <string name="ma_toolbar_title">首页</string>
     <string name="ma_toolbar_item1">今日新闻</string>
     <string name="ma_menu_change_mode_day">日间模式</string>
@@ -8,4 +9,10 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!--Main2Activity-->
+    <string name="ma_2_toolbar_title"></string>
+    <string name="ma_2_menu_open_in_chrome">通过其它应用打开</string>
+    <string name="ma_2_menu_copy_uri">复制链接</string>
+    <string name="ma_2_menu_share">分享</string>
 </resources>

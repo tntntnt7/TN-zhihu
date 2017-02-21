@@ -7,12 +7,12 @@
         android:layout_width="match_parent"
         android:layout_height="225dp"
         app:banner_pointContainerLeftRightPadding="10dp"
-        app:banner_pointTopBottomMargin="6dp"
-        app:banner_pointLeftRightMargin="3dp"
+        app:banner_pointTopBottomMargin="10dp"
+        app:banner_pointLeftRightMargin="1.5dp"
         app:banner_pointGravity="center_horizontal"
         app:banner_pointContainerBackground="@android:color/transparent"
         app:banner_pointDrawable="@drawable/selector_banner_point"
-        app:banner_pointAutoPlayInterval="3"
-        app:banner_pageChangeDuration="300"/>
+        app:banner_pointAutoPlayInterval="5"
+        app:banner_pageChangeDuration="700"/>
 
 

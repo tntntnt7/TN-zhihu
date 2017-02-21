@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_2_share"
+        android:title="@string/ma_2_menu_share"
+        android:icon="@drawable/ma_2_menu_share"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/menu_2_open_in_chrome"
+        android:title="@string/ma_2_menu_open_in_chrome"
+        android:icon="@drawable/ma_2_menu_open_chrome"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/menu_2_copy_uri"
+        android:title="@string/ma_2_menu_copy_uri"
+        app:showAsAction="never"/>
+</menu>
