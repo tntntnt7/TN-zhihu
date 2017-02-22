@@ -10,7 +10,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <!--Main2Activity-->
+    <!--MainActivity2-->
     <string name="ma_2_toolbar_title"></string>
     <string name="ma_2_menu_open_in_chrome">通过其它应用打开</string>
     <string name="ma_2_menu_copy_uri">复制链接</string>

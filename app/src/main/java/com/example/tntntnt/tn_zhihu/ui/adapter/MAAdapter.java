@@ -16,8 +16,8 @@ import com.example.tntntnt.tn_zhihu.api.RecyclerMA;
 import com.example.tntntnt.tn_zhihu.bean.BeanBanner;
 import com.example.tntntnt.tn_zhihu.bean.BeanMAItemA;
 import com.example.tntntnt.tn_zhihu.bean.BeanMAItemB;
-import com.example.tntntnt.tn_zhihu.ui.activity.Main2Activity;
 import com.example.tntntnt.tn_zhihu.ui.activity.MainActivity;
+import com.example.tntntnt.tn_zhihu.ui.activity.MainActivity2;
 import com.example.tntntnt.tn_zhihu.util.AllAboutDate;
 import com.sivin.Banner;
 
@@ -163,14 +163,14 @@ public class MAAdapter extends RecyclerView.Adapter<MAAdapter.MAHolder> {
              */
             if (v.getId() == R.id.item_2){
                 if (recyclerMA instanceof BeanMAItemB){
-                    Main2Activity.newInstance(mContext, STORY_URL + ((BeanMAItemB) recyclerMA).getId());
+                    MainActivity2.newInstance(mContext, STORY_URL + ((BeanMAItemB) recyclerMA).getId(), 0);
                 }
             }
         }
 
         public void goNews(String url){
             Log.d("GO", "news");
-            Main2Activity.newInstance(mContext, url);
+            MainActivity2.newInstance(mContext, url, 0);
         }
     }
 }

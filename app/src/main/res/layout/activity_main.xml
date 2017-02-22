@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
     <android.support.v7.widget.Toolbar
@@ -14,6 +14,7 @@
     </android.support.v7.widget.Toolbar>
 
     <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_below="@id/ma_toolbar"
         android:id="@+id/ma_swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -25,4 +26,14 @@
                 android:scrollbars="vertical"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
-</LinearLayout>
+
+
+    <com.example.tntntnt.tn_zhihu.ui.view.MyFloatingActionButton
+        android:id="@+id/my_fb"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="-110dp"
+        android:layout_marginBottom="-110dp"/>
+</RelativeLayout>

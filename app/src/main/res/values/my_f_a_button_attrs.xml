@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="MyFloatingActionButton">
+        <!--home背景-->
+        <attr name="b_home" format="reference|color" />
+        <!--leftButton背景-->
+        <attr name="b_left" format="reference|color" />
+        <!--topButton背景-->
+        <attr name="b_top" format="reference|color" />
+    </declare-styleable>
+
+</resources>
