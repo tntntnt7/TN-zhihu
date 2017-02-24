@@ -14,12 +14,12 @@
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:layout_below="@id/ma_one_day_toolbar"
-        android:id="@+id/ma_swipe_refresh"
+        android:id="@+id/ma_one_day_swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/ma_recycle_view"
+            android:id="@+id/ma_one_day_recycle_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="vertical"/>
@@ -27,3 +27,5 @@
     </android.support.v4.widget.SwipeRefreshLayout>
 
 </RelativeLayout>
+
+<!--datePicker之后出现的指定日期的页面-->

@@ -15,4 +15,6 @@
     <string name="ma_2_menu_open_in_chrome">通过其它应用打开</string>
     <string name="ma_2_menu_copy_uri">复制链接</string>
     <string name="ma_2_menu_share">分享</string>
+
+    <string name="date_picker_title">选择你想要浏览的日期</string>
 </resources>

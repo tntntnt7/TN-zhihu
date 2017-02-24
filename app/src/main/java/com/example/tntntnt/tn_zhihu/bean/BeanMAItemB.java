@@ -1,5 +1,6 @@
 package com.example.tntntnt.tn_zhihu.bean;
 
+import android.annotation.SuppressLint;
 import android.os.Parcel;
 
 import com.example.tntntnt.tn_zhihu.api.RecyclerMA;
@@ -12,6 +13,7 @@ import java.util.List;
  * Created by tntnt on 2017/2/17.
  */
 
+@SuppressLint("ParcelCreator")
 public class BeanMAItemB implements RecyclerMA {
 
     //单独赋值

@@ -38,6 +38,20 @@ public class AllAboutDate {
         return answer;
     }
 
+    public static String getDateString(String jsonDate){
+        String answer;
+
+        List<Integer> date = splitDateString(jsonDate);
+
+        int year = date.get(0);
+        int month = date.get(1);
+        int day = date.get(2);
+
+        answer = year + "年" +  month + "月" + day + "日";
+
+        return answer;
+    }
+
 
     public static String go(int year, int month, int day){
         Calendar calendar = Calendar.getInstance();

@@ -6,8 +6,11 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.util.Util;
 import com.example.tntntnt.tn_zhihu.R;
 import com.example.tntntnt.tn_zhihu.bean.BeanBanner;
+import com.example.tntntnt.tn_zhihu.ui.activity.MainActivity1;
+import com.example.tntntnt.tn_zhihu.ui.fragment.MainFragment;
 import com.sivin.ImageViewWithTitle;
 
 import java.util.List;
@@ -40,7 +43,7 @@ public class BannerAdapter extends com.sivin.BannerAdapter<BeanBanner> {
         imageViewWithTitle.setTextSize(22);
         imageViewWithTitle.setTextViewColor(Color.WHITE);
         imageViewWithTitle.setTextPadding(40, 0, 40, 80);
-        //imageViewWithTitle.setPadding(40, 0, 40, 80);
+
 
         Glide.with(mContext)
                 .load(beanBanner.getImage())

@@ -55,6 +55,10 @@ public class MAAdapter extends RecyclerView.Adapter<MAAdapter.MAHolder> {
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_1, parent, false);
                 return new MAHolder(view);
             case BeanMAItemB.viewType:
+//                if (listB == null){
+//                    view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_main_one_day_fragment, parent, false);
+//                    return new MAHolder(view);
+//                }
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_2, parent, false);
                 return new MAHolder(view);
             default:
