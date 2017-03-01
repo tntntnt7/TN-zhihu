@@ -10,6 +10,6 @@ import java.io.Serializable;
  * Created by tntnt on 2017/2/17.
  */
 
-public interface RecyclerMA extends Parcelable {
+public interface RecyclerMA extends Serializable {
     abstract int getViewType();
 }

@@ -12,6 +12,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.transition.Explode;
+import android.transition.Fade;
+import android.transition.Slide;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,22 +24,34 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.util.Util;
 import com.example.tntntnt.tn_zhihu.R;
+import com.example.tntntnt.tn_zhihu.api.RecyclerMA;
+import com.example.tntntnt.tn_zhihu.bean.BeanBanner;
 import com.example.tntntnt.tn_zhihu.ui.fragment.MainFragment;
 import com.example.tntntnt.tn_zhihu.ui.view.MyFloatingActionButton;
 import com.example.tntntnt.tn_zhihu.util.NetConnectionState;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 代替MainActivity
  */
 public class MainActivity1 extends AppCompatActivity {
 
+    public static final String LIST_RMA = "listRMA";
+    public static final String LIST_BANNER = "listBanner";
+
     /**ma*/
     private Toolbar mToolbar;
     private MenuItem mMode;
     private DrawerLayout mDrawer;
 
-    protected Fragment createFragment() {
-        return new MainFragment();
+    List<RecyclerMA> listRMA = new ArrayList<>();
+    List<BeanBanner> listBanner = new ArrayList<>();
+
+    protected Fragment createFragment(List<RecyclerMA> listRMA, List<BeanBanner> listBanner) {
+        //return  new MainFragment();
+        return new MainFragment(listRMA, listBanner);
     }
 
     @Override
@@ -54,32 +69,21 @@ public class MainActivity1 extends AppCompatActivity {
         }
     }
 
-//    @Override
-//    public void onStop(){
-//        super.onStop();
-//        Log.d("DES", "onStop");
-//        if (Util.isOnMainThread()){
-//            if (Glide.isSetup()){
-//                Glide.with(this).pauseRequests();
-//            }
-//        }
-//    }
-
-    @Override
-    public void onDestroy(){
-        super.onDestroy();
-//        Log.d("DES", "onDestroy");
-//        if (Util.isOnMainThread()){
-//            if (Glide.isSetup()){
-//                Glide.with(this).pauseRequests();
-//            }
-//        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.drawer_activity_main);
+
+        Bundle list = getIntent().getExtras();
+        if (list != null){
+            listRMA = (List<RecyclerMA>) list.getSerializable(LIST_RMA);
+            listBanner = (List<BeanBanner>) list.getSerializable(LIST_BANNER);
+            Log.d("sa_ma1", "listRMA.size() = " + listRMA.size() + "\nlistBanner.size() = " + listBanner.size());
+        } else {
+            Log.d("sa_ma1", "list is null");
+        }
+
 
         initView();
 
@@ -87,7 +91,7 @@ public class MainActivity1 extends AppCompatActivity {
         Fragment fragment = fm.findFragmentById(R.id.fragment_container);
 
         if (fragment == null){
-            fragment = createFragment();
+            fragment = createFragment(listRMA, listBanner);
             fm.beginTransaction()
                     .add(R.id.fragment_container, fragment)
                     .commit();

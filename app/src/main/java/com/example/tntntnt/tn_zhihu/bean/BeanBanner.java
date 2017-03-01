@@ -1,5 +1,6 @@
 package com.example.tntntnt.tn_zhihu.bean;
 
+import android.annotation.SuppressLint;
 import android.os.Parcel;
 
 import com.example.tntntnt.tn_zhihu.api.RecyclerMA;
@@ -74,13 +75,4 @@ public class BeanBanner implements RecyclerMA {
         return viewType;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-
-    }
 }

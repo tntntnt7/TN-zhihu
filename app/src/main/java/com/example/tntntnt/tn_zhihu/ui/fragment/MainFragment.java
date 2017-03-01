@@ -2,6 +2,7 @@ package com.example.tntntnt.tn_zhihu.ui.fragment;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -51,6 +52,7 @@ import java.util.List;
  * Created by tntnt on 2017/2/23.
  */
 
+@SuppressLint("ValidFragment")
 public class MainFragment extends Fragment {
 
     private static final String DIALOG_DATE = "DialogDate";
@@ -58,7 +60,6 @@ public class MainFragment extends Fragment {
 
     private MainActivity1 mainActivity1;
 
-    private Thread mThread;
 
     /**ma*/
 //    private Toolbar mToolbar;
@@ -81,6 +82,12 @@ public class MainFragment extends Fragment {
     private List<BeanBanner> mListBanner = new ArrayList<>();
     private int dayByDay;
 
+    @SuppressLint("ValidFragment")
+    public MainFragment(List<RecyclerMA> listRMA, List<BeanBanner> listBanner){
+        mListRMA = listRMA;
+        mListBanner = listBanner;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -96,8 +103,19 @@ public class MainFragment extends Fragment {
 
         initView(view);
 
+
         if (NetConnectionState.isConnected(mainActivity1)){
-            initData(0);
+            if (mListRMA.size() != 0 && mListBanner.size() != 0){
+                Log.d("sa_mf", "得到传过来的数据");
+                Log.d("sa_mf", "mListRAM.size = " + mListRMA.size());
+                Log.d("sa_mf", "mListBanner.size = " + mListBanner.size());
+                maAdapter = new MAAdapter(mListRMA, mainActivity1, mListBanner);
+                mMARecycler.setAdapter(maAdapter);
+            } else {
+                Log.d("sa_mf", "我要重新加载");
+                mSwipeRefresh.setRefreshing(true);
+                initData(0);
+            }
         } else {
             Toast.makeText(mainActivity1, "未连接网络", Toast.LENGTH_SHORT).show();}
 
@@ -118,7 +136,6 @@ public class MainFragment extends Fragment {
 //            }
 //        }
 
-        mThread.interrupt();
         Log.d("DES", "onDestroyView2");
     }
 
@@ -172,7 +189,7 @@ public class MainFragment extends Fragment {
     }
 
     private void initData(final int i) {
-        mThread = new Thread(new Runnable() {
+        new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -233,9 +250,7 @@ public class MainFragment extends Fragment {
                     e.printStackTrace();
                 }
             }
-        });
-
-        mThread.start();
+        }).start();
     }
 
     private void initView(View view) {

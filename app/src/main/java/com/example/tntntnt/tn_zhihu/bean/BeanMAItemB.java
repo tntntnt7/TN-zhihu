@@ -13,7 +13,6 @@ import java.util.List;
  * Created by tntnt on 2017/2/17.
  */
 
-@SuppressLint("ParcelCreator")
 public class BeanMAItemB implements RecyclerMA {
 
     //单独赋值
@@ -95,13 +94,4 @@ public class BeanMAItemB implements RecyclerMA {
         return viewType;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-
-    }
 }
