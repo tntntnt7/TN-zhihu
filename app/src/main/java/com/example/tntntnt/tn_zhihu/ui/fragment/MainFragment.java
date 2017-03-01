@@ -58,6 +58,8 @@ public class MainFragment extends Fragment {
 
     private MainActivity1 mainActivity1;
 
+    private Thread mThread;
+
     /**ma*/
 //    private Toolbar mToolbar;
 //    private MenuItem mMode;
@@ -108,10 +110,18 @@ public class MainFragment extends Fragment {
     public void onDestroyView(){
         super.onDestroyView();
         mMARecycler.setLayoutManager(null);
-        if (Util.isOnBackgroundThread()){
-            Glide.with(this).pauseRequests();
-        }
+
+        Log.d("DES", "onDestroyView1");
+//        if (Util.isOnMainThread()){
+//            if (Glide.isSetup()){
+//                Glide.with(mainActivity1).pauseRequests();
+//            }
+//        }
+
+        mThread.interrupt();
+        Log.d("DES", "onDestroyView2");
     }
+
 
     private void initRecyclerListener() {
 
@@ -162,7 +172,7 @@ public class MainFragment extends Fragment {
     }
 
     private void initData(final int i) {
-        new Thread(new Runnable() {
+        mThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -223,47 +233,12 @@ public class MainFragment extends Fragment {
                     e.printStackTrace();
                 }
             }
-        }).start();
+        });
+
+        mThread.start();
     }
 
     private void initView(View view) {
-//        /**mToolbar部分*/
-//        mToolbar = (Toolbar)view.findViewById(R.id.ma_toolbar);
-//        mToolbar.setTitle(R.string.ma_toolbar_title);
-//        mToolbar.setTitleTextColor(Color.WHITE);
-//        //设置title字体大小
-//        if (mToolbar.getChildAt(0) instanceof TextView){
-//            ((TextView) mToolbar.getChildAt(0)).setTextSize(20);
-//        }
-//        //设置menu
-//        mToolbar.inflateMenu(R.menu.menu_main_activity);
-//        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem item) {
-//                switch (item.getItemId()){
-//                    case R.id.menu_change_mode:
-//                        //设置theme的夜间模式
-//                        if (item.getTitle().equals(getResources().getString(R.string.ma_menu_change_mode_night))){
-//                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-//                            mainActivity1.recreate();
-//                        } else {
-//                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-//                            mainActivity1.recreate();
-//                        }
-//                        return true;
-//                    default:
-//                        return false;
-//                }
-//            }
-//        });
-//        mMode = mToolbar.getMenu().getItem(0);
-//
-//        /**drawer部分*/
-//        mDrawer = (DrawerLayout)view.findViewById(R.id.ma_drawer);
-//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-//                mainActivity1, mDrawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-//        mDrawer.addDrawerListener(toggle);
-//        toggle.syncState();
 
         /**swipeRefresh部分*/
         mSwipeRefresh = (SwipeRefreshLayout)view.findViewById(R.id.ma_1_fragment_swipe_refresh);
@@ -289,8 +264,6 @@ public class MainFragment extends Fragment {
         /**MARecycler*/
         mMARecycler = (RecyclerView)view.findViewById(R.id.ma_1_fragment_recycle_view);
         mMARecycler.setLayoutManager(linearLayoutManager);
-
-
 
         /**mMyFB*/
         mMyFB = (MyFloatingActionButton)view.findViewById(R.id.ma_1_fragment_my_fb);
@@ -336,7 +309,8 @@ public class MainFragment extends Fragment {
             calendar.setTime(date);
             calendar.add(Calendar.DAY_OF_MONTH, 1);
             int year = calendar.get(Calendar.YEAR);
-            int month = calendar.get(Calendar.MONTH);
+            //Calendar.MONTH从0到11分别代表从一月到十二月，故+1
+            int month = calendar.get(Calendar.MONTH) + 1;
             int day = calendar.get(Calendar.DAY_OF_MONTH);
 
             String monthString = (month < 10) ? "0" + month : "" + month;

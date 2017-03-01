@@ -21,6 +21,7 @@ import com.example.tntntnt.tn_zhihu.net.AboutJson;
 import com.example.tntntnt.tn_zhihu.ui.activity.MainActivity1;
 import com.example.tntntnt.tn_zhihu.ui.activity.MainActivity2;
 import com.example.tntntnt.tn_zhihu.ui.adapter.MAAdapter;
+import com.example.tntntnt.tn_zhihu.ui.adapter.OneDayAdapter;
 import com.example.tntntnt.tn_zhihu.util.AllAboutDate;
 import com.example.tntntnt.tn_zhihu.util.ListAddList;
 import com.example.tntntnt.tn_zhihu.util.NetConnectionState;
@@ -38,8 +39,7 @@ public class OneDayFragment extends Fragment {
 
     private static String mDateString;
     private List<RecyclerMA> mList;
-    private List<BeanBanner> mListBanner;
-    private MAAdapter mAdapter;
+    private OneDayAdapter mAdapter;
 
     private Toolbar mToolbar;
     private RecyclerView mRecyclerView;
@@ -112,31 +112,21 @@ public class OneDayFragment extends Fragment {
             public void run() {
                 try {
                     int dayInt = Integer.parseInt(mDateString);
-
-                    Log.d("onedayF", "sonThread");
-
-
-                    final List<BeanBanner> fake_mListBanner = new ArrayList<>();
+                    Log.d("DDDAT", "" + dayInt);
 
                     final BeanMAItemA beanMAItemA = AboutJson.decodeBeanMAItemA(dayInt);
 
-
-
                     List<RecyclerMA> itemAList1 = (AboutJson.decodeRecyclerMA(dayInt, 0));
                     mList = itemAList1;
-
-                    List<RecyclerMA> bannerList = (AboutJson.decodeRecyclerMA(0, 1));
-                    ListAddList.addBanner(fake_mListBanner, bannerList);
-
                     Log.d("onedayF", "mList.size" + mList.size());
 
                     mainActivity2.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            mListBanner = fake_mListBanner;
                             mToolbar.setTitle(AllAboutDate.getDateString(beanMAItemA.getTitle()));
-                            mAdapter = new MAAdapter(mList, mainActivity2, mListBanner);
+                            mAdapter = new OneDayAdapter(mList, mainActivity2);
                             mRecyclerView.setAdapter(mAdapter);
+
 
                             mSwipeRefreshLayout.setRefreshing(false);
                         }

@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -53,12 +54,26 @@ public class MainActivity1 extends AppCompatActivity {
         }
     }
 
+//    @Override
+//    public void onStop(){
+//        super.onStop();
+//        Log.d("DES", "onStop");
+//        if (Util.isOnMainThread()){
+//            if (Glide.isSetup()){
+//                Glide.with(this).pauseRequests();
+//            }
+//        }
+//    }
+
     @Override
     public void onDestroy(){
         super.onDestroy();
-        if (Util.isOnBackgroundThread()){
-            Glide.with(this).pauseRequests();
-        }
+//        Log.d("DES", "onDestroy");
+//        if (Util.isOnMainThread()){
+//            if (Glide.isSetup()){
+//                Glide.with(this).pauseRequests();
+//            }
+//        }
     }
 
     @Override

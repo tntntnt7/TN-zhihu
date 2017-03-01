@@ -45,11 +45,13 @@ public class BannerAdapter extends com.sivin.BannerAdapter<BeanBanner> {
         imageViewWithTitle.setTextPadding(40, 0, 40, 80);
 
 
-        Glide.with(mContext)
-                .load(beanBanner.getImage())
-                .placeholder(R.drawable.img_empty)
-                .error(R.drawable.img_broken)
-                .into(imageViewWithTitle.getImageView());
+        if (Util.isOnMainThread()){
+            Glide.with(mContext)
+                    .load(beanBanner.getImage())
+                    .placeholder(R.drawable.img_empty)
+                    .error(R.drawable.img_broken)
+                    .into(imageViewWithTitle.getImageView());
+        }
 
 
         Log.d(">banner", beanBanner.getTitle());
