@@ -4,6 +4,7 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -54,19 +55,32 @@ public class MainActivity1 extends AppCompatActivity {
         return new MainFragment(listRMA, listBanner);
     }
 
+    /**
+     * 设置返回键
+     * 当drawer打开时，按下返回键收回drawer
+     */
+    @Override
+    public void onBackPressed() {
+        if (mDrawer.isDrawerOpen(GravityCompat.START)) {
+            mDrawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
     @Override
     public void onResume(){
         super.onResume();
 
-        int uiMode = getResources().getConfiguration().uiMode;
-        int currentMode = uiMode & Configuration.UI_MODE_NIGHT_MASK;
-        if (currentMode == Configuration.UI_MODE_NIGHT_NO) {
-            mMode.setTitle(R.string.ma_menu_change_mode_night);
-        } else if (currentMode == Configuration.UI_MODE_NIGHT_YES) {
-            mMode.setTitle(R.string.ma_menu_change_mode_day);
-        } else {
-            mMode.setTitle(R.string.ma_menu_change_mode_night);
-        }
+//        int uiMode = getResources().getConfiguration().uiMode;
+//        int currentMode = uiMode & Configuration.UI_MODE_NIGHT_MASK;
+//        if (currentMode == Configuration.UI_MODE_NIGHT_NO) {
+//            mMode.setTitle(R.string.ma_menu_change_mode_night);
+//        } else if (currentMode == Configuration.UI_MODE_NIGHT_YES) {
+//            mMode.setTitle(R.string.ma_menu_change_mode_day);
+//        } else {
+//            mMode.setTitle(R.string.ma_menu_change_mode_night);
+//        }
     }
 
 
@@ -102,7 +116,7 @@ public class MainActivity1 extends AppCompatActivity {
         /**mToolbar部分*/
         mToolbar = (Toolbar)findViewById(R.id.ma_1_fragment_toolbar);
         mToolbar.setTitle(R.string.ma_toolbar_title);
-        mToolbar.setTitleTextColor(Color.WHITE);
+//        mToolbar.setTitleTextColor(Color.WHITE);
         //设置title字体大小
         if (mToolbar.getChildAt(0) instanceof TextView){
             ((TextView) mToolbar.getChildAt(0)).setTextSize(20);
@@ -114,14 +128,14 @@ public class MainActivity1 extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.menu_change_mode:
-                        //设置theme的夜间模式
-                        if (item.getTitle().equals(getResources().getString(R.string.ma_menu_change_mode_night))){
-                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                            recreate();
-                        } else {
-                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                            recreate();
-                        }
+//                        //设置theme的夜间模式
+//                        if (item.getTitle().equals(getResources().getString(R.string.ma_menu_change_mode_night))){
+//                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+//                            recreate();
+//                        } else {
+//                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//                            recreate();
+//                        }
                         return true;
                     default:
                         return false;

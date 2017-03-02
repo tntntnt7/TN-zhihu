@@ -242,6 +242,7 @@ public class MainFragment extends Fragment {
                                 @Override
                                 public void run() {
                                     maAdapter.notifyDataSetChanged();
+                                    mMARecycler.smoothScrollBy(0, 140);
                                 }
                             });
                             break;
@@ -282,6 +283,7 @@ public class MainFragment extends Fragment {
 
         /**mMyFB*/
         mMyFB = (MyFloatingActionButton)view.findViewById(R.id.ma_1_fragment_my_fb);
+        mMyFB.setHomeClick();
         fbHome = mMyFB.getFbHome();
         fbTop = mMyFB.getFbTop();
         fbLeft = mMyFB.getFbLeft();
@@ -290,6 +292,7 @@ public class MainFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 mMyFB.setHomeClick();
+                Log.d("FBH_mf", "点到了");
             }
         });
         fbTop.setOnClickListener(new View.OnClickListener() {

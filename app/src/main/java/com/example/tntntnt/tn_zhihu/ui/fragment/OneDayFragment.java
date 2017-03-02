@@ -69,6 +69,7 @@ public class OneDayFragment extends Fragment {
         initView(view);
 
         if (NetConnectionState.isConnected(mainActivity2)){
+            mSwipeRefreshLayout.setRefreshing(true);
             initData();
         } else {
             Toast.makeText(mainActivity2, "未连接网络", Toast.LENGTH_SHORT).show();}
@@ -86,10 +87,12 @@ public class OneDayFragment extends Fragment {
             public void onClick(View v) {
                 mList.clear();
                 getActivity().finish();
+                mainActivity2.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
             }
         });
 
         mSwipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.ma_one_day_swipe_refresh);
+        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.TN_colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

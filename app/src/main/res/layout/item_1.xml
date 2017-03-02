@@ -5,8 +5,8 @@
     android:layout_height="40dp"
     android:gravity="center_vertical"
     android:paddingLeft="20dp"
-    android:layout_marginTop="5dp"
-    android:layout_marginBottom="5dp"
+    android:layout_marginTop="2dp"
+    android:layout_marginBottom="2dp"
     android:text="今日热闻"
     android:textSize="14dp"
     />

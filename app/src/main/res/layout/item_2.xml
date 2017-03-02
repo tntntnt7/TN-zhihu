@@ -4,9 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:id="@+id/item_2"
+    android:layout_marginTop="4dp"
     android:layout_marginLeft="8dp"
     android:layout_marginRight="8dp"
-    android:layout_marginBottom="8dp"
+    android:layout_marginBottom="4dp"
     android:translationZ="-1dp"
     android:background="?android:attr/selectableItemBackground">
     <!--android:stateListAnimator="@animator/cardview_anim"-->

@@ -71,6 +71,7 @@ public class StoryFragment extends Fragment {
             public void onClick(View v) {
                 Log.d("m2", "get2");
                 getActivity().finish();
+                activity2.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
             }
         });
         //mToolbar.inflateMenu(R.menu.menu_main_activity_2);无效果

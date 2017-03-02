@@ -3,6 +3,7 @@ package com.example.tntntnt.tn_zhihu.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +23,7 @@ public class MainActivity2 extends SingleFragmentActivity {
     public static final String KEY_DATE_STRING = "date_string";
     public static int mFlag;
 
+
     public static void newInstance(Context context, String url, int flag){
         Intent intent = new Intent(context, MainActivity2.class);
         if (flag == 0){
@@ -32,6 +34,12 @@ public class MainActivity2 extends SingleFragmentActivity {
         }
         mFlag = flag;
         context.startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
     }
 
     @Override

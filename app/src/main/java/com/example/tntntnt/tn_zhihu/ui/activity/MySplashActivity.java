@@ -1,14 +1,21 @@
 package com.example.tntntnt.tn_zhihu.ui.activity;
 
+import android.animation.ObjectAnimator;
 import android.app.ActivityOptions;
 import android.app.Application;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.transition.Fade;
 import android.util.Log;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.ScaleAnimation;
+import android.widget.ImageView;
 
 import com.example.tntntnt.tn_zhihu.R;
 import com.example.tntntnt.tn_zhihu.api.RecyclerMA;
@@ -36,14 +43,17 @@ public class MySplashActivity extends AppCompatActivity {
     private List<BeanBanner> mListBanner = new ArrayList<>();
 
     private Intent intent;
+    private ImageView mImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        getWindow().setEnterTransition(new Fade());
-//        getWindow().setExitTransition(new Fade());
+//        getWindow().setNavigationBarColor(Color.BLACK);
+//        getWindow().setStatusBarColor(Color.BLACK);
         setContentView(R.layout.activity_my_splash);
         mStartTime = System.currentTimeMillis();
+
+        imageAnim();
 
         intent = new Intent(this, MainActivity1.class);
 
@@ -52,6 +62,22 @@ public class MySplashActivity extends AppCompatActivity {
         } else {
             go();
         }
+    }
+
+    private void imageAnim() {
+        mImageView = (ImageView)findViewById(R.id.sa_img);
+
+        AlphaAnimation alphaAnimation = new AlphaAnimation(0, 1);
+
+        ScaleAnimation scaleAnimation = new ScaleAnimation(0.8f, 1, 0.8f, 1,
+                Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
+
+        AnimationSet animationSet = new AnimationSet(true);
+        animationSet.setDuration(SHOW_TIME_MIN);
+        animationSet.addAnimation(alphaAnimation);
+        animationSet.addAnimation(scaleAnimation);
+
+        mImageView.startAnimation(animationSet);
     }
 
     private void initData() {
@@ -117,6 +143,7 @@ public class MySplashActivity extends AppCompatActivity {
 
     private void go() {
         startActivity(intent);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         finish();
     }
 }
