@@ -5,7 +5,10 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -58,7 +61,7 @@ public class MainFragment extends Fragment {
     private static final String DIALOG_DATE = "DialogDate";
     private static final int REQUEST_DATE = 0;
 
-    private MainActivity1 mainActivity1;
+    private static MainActivity1 mainActivity1;
 
 
     /**ma*/
@@ -66,21 +69,37 @@ public class MainFragment extends Fragment {
 //    private MenuItem mMode;
 //    private DrawerLayout mDrawer;
     private SwipeRefreshLayout mSwipeRefresh;
-    private RecyclerView mMARecycler;
-    private MAAdapter maAdapter;
+    private static RecyclerView mMARecycler;
+    private static MAAdapter maAdapter;
     private LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mainActivity1);
 
-    private MyFloatingActionButton mMyFB;
-    private FloatingActionButton fbHome;
-    private FloatingActionButton fbLeft;
-    private FloatingActionButton fbTop;
 
-    private DatePicker mDatePicker;
+    private MyFloatingActionButton mMyFB;
+    private static FloatingActionButton fbHome;
+    private static FloatingActionButton fbLeft;
+    private static FloatingActionButton fbTop;
+
 
     /**data*/
-    private List<RecyclerMA> mListRMA = new ArrayList<>();
+    public static List<RecyclerMA> mListRMA = new ArrayList<>();
     private List<BeanBanner> mListBanner = new ArrayList<>();
     private int dayByDay;
+
+    /**更改recyclerView背景*/
+    public static void setRecyclerBackgroundColoor(int recycler){
+        mMARecycler.setBackgroundColor(recycler);
+    }
+    /**更改item颜色*/
+    public static void setItemBackgroundColor(int item1, int item2Background, int item2TextColor){
+        maAdapter.setItem1TextColor(item1);
+        maAdapter.setItem2Color(item2Background, item2TextColor);
+    }
+    /**更改MyFB颜色*/
+    public static void setMyFBColor(int color){
+        fbLeft.setBackgroundTintList(ColorStateList.valueOf(color));
+        fbTop.setBackgroundTintList(ColorStateList.valueOf(color));
+        fbHome.setBackgroundTintList(ColorStateList.valueOf(color));
+    }
 
     @SuppressLint("ValidFragment")
     public MainFragment(List<RecyclerMA> listRMA, List<BeanBanner> listBanner){
@@ -100,9 +119,7 @@ public class MainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.activity_main_1_main_fragment, container, false);
 
-
         initView(view);
-
 
         if (NetConnectionState.isConnected(mainActivity1)){
             if (mListRMA.size() != 0 && mListBanner.size() != 0){
@@ -124,20 +141,11 @@ public class MainFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onDestroyView(){
-        super.onDestroyView();
-        mMARecycler.setLayoutManager(null);
-
-        Log.d("DES", "onDestroyView1");
-//        if (Util.isOnMainThread()){
-//            if (Glide.isSetup()){
-//                Glide.with(mainActivity1).pauseRequests();
-//            }
-//        }
-
-        Log.d("DES", "onDestroyView2");
-    }
+//    @Override
+//    public void onDestroyView(){
+//        super.onDestroyView();
+//        mMARecycler.setLayoutManager(null);
+//    }
 
 
     private void initRecyclerListener() {

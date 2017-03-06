@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:id="@+id/item_2"
@@ -9,7 +10,8 @@
     android:layout_marginRight="8dp"
     android:layout_marginBottom="4dp"
     android:translationZ="-1dp"
-    android:background="?android:attr/selectableItemBackground">
+    app:cardBackgroundColor="?attr/cardViewBackgroundColor">
+    <!--android:background="?android:attr/selectableItemBackground"-->
     <!--android:stateListAnimator="@animator/cardview_anim"-->
 
     <LinearLayout
@@ -31,7 +33,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="1dp"
-            android:textColor="@android:color/black"
+            android:textColor="?attr/clockTextColor"
             android:textSize="15dp"
             android:text="其实，柚子茶和柚子没半毛钱关系"/>
 

@@ -8,12 +8,29 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <!--无actionbar的theme-->
-    <style name="TN_Theme" parent="Theme.AppCompat.Light.NoActionBar">
+    <!--日间主题-->
+    <style name="TN_Theme_DAY" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/TN_colorPrimary</item>
         <item name="colorPrimaryDark">@color/TN_colorPrimaryDark</item>
         <item name="colorAccent">@color/TN_colorAccent</item>
 
+        <item name="clockBackground">@android:color/transparent</item>
+        <item name="clockTextColor">@android:color/black</item>
+        <item name="clockTextColor_item_1">@color/item_1_text_color</item>
+        <item name="cardViewBackgroundColor">@android:color/white</item>
+
+        <item name="android:windowAnimationStyle">@style/Animation</item>
+    </style>
+    <!--夜间主题-->
+    <style name="TN_Theme_NIGHT" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/TN_colorPrimary_n</item>
+        <item name="colorPrimaryDark">@color/TN_colorPrimaryDark_n</item>
+        <item name="colorAccent">@color/TN_colorPrimary_n</item>
+
+        <item name="clockBackground">@color/clockBackground_night</item>
+        <item name="clockTextColor">@android:color/white</item>
+        <item name="clockTextColor_item_1">@android:color/white</item>
+        <item name="cardViewBackgroundColor">@color/TN_colorAccent_n</item>
 
         <item name="android:windowAnimationStyle">@style/Animation</item>
     </style>
@@ -33,4 +50,23 @@
         <item name="android:taskToBackEnterAnimation">@null</item>
         <item name="android:taskToBackExitAnimation">@null</item>
     </style>
+
+
+    <!--&lt;!&ndash;day&ndash;&gt;-->
+    <!--<style name="DayTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
+        <!--<item name="colorPrimary">@color/TN_colorPrimary</item>-->
+        <!--<item name="colorPrimaryDark">@color/TN_colorPrimaryDark</item>-->
+        <!--<item name="colorAccent">@color/TN_colorAccent</item>-->
+        <!--<item name="clockBackground">@android:color/white</item>-->
+        <!--<item name="clockTextColor">@android:color/black</item>-->
+    <!--</style>-->
+
+    <!--&lt;!&ndash;night&ndash;&gt;-->
+    <!--<style name="NightTheme" parent="Theme.AppCompat.Light.NoActionBar">-->
+        <!--<item name="colorPrimary">@color/TN_colorPrimary_n</item>-->
+        <!--<item name="colorPrimaryDark">@color/TN_colorPrimaryDark_n</item>-->
+        <!--<item name="colorAccent">@color/TN_colorAccent_n</item>-->
+        <!--<item name="clockBackground">@android:color/black</item>-->
+        <!--<item name="clockTextColor">@android:color/white</item>-->
+    <!--</style>-->
 </resources>

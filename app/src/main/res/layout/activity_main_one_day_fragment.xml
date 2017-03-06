@@ -25,7 +25,8 @@
             android:id="@+id/ma_one_day_recycle_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="vertical"/>
+            android:scrollbars="vertical"
+            android:background="?attr/clockBackground"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

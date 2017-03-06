@@ -2,6 +2,7 @@ package com.example.tntntnt.tn_zhihu.ui.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ import com.example.tntntnt.tn_zhihu.ui.activity.MainActivity2;
 import com.example.tntntnt.tn_zhihu.util.AllAboutDate;
 import com.sivin.Banner;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,6 +38,22 @@ public class MAAdapter extends RecyclerView.Adapter<MAAdapter.MAHolder> {
 
     private List<RecyclerMA> list;
     public List<BeanBanner> listB;
+
+    public static List<TextView> item1TextView = new ArrayList<>();
+    public static void setItem1TextColor(int id){
+        for (TextView textView : item1TextView){
+            textView.setTextColor(id);
+        }
+    }
+    //public static List<TextView> item2TextView;
+    public static List<View> item2CardView = new ArrayList<>();
+    public static void setItem2Color(int background, int textColor){
+        for (View view : item2CardView){
+            view.setBackgroundColor(background);
+            TextView view1 = (TextView)view.findViewById(R.id.item_2_textView);
+            view1.setTextColor(textColor);
+        }
+    }
 
     public MAAdapter(List<RecyclerMA> list, Context context, List<BeanBanner> listB){
         this.list = list;
@@ -53,6 +71,7 @@ public class MAAdapter extends RecyclerView.Adapter<MAAdapter.MAHolder> {
                 return new MAHolder(view, 0);
             case BeanMAItemA.viewType:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_1, parent, false);
+                item1TextView.add((TextView) view);
                 return new MAHolder(view);
             case BeanMAItemB.viewType:
 //                if (listB == null){
@@ -60,6 +79,7 @@ public class MAAdapter extends RecyclerView.Adapter<MAAdapter.MAHolder> {
 //                    return new MAHolder(view);
 //                }
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_2, parent, false);
+                item2CardView.add(view);
                 return new MAHolder(view);
             default:
                 return null;

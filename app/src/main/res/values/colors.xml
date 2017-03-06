@@ -4,8 +4,17 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <!--TN_theme-->
+    <!--TN_theme_day-->
     <color name="TN_colorPrimary">#ff33b5e5</color>
     <color name="TN_colorPrimaryDark">#217e9f</color>
     <color name="TN_colorAccent">#56aece</color>
+
+    <!--TN_theme_night-->
+    <color name="TN_colorPrimary_n">#0b2731</color>
+    <color name="TN_colorPrimaryDark_n">#000000</color>
+    <color name="TN_colorAccent_n">#234854</color>
+    <color name="clockBackground_night">#1a3a43</color>
+
+
+    <color name="item_1_text_color">#90989b</color>
 </resources>

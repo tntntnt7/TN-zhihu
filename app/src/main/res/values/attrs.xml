@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="clockBackground" format="color" />
+    <attr name="clockTextColor" format="color" />
+
+    <attr name="clockTextColor_item_1" format="color" />
+    <attr name="cardViewBackgroundColor" format="color"/>
+</resources>

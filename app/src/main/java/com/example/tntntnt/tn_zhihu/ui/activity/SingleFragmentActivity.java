@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.tntntnt.tn_zhihu.R;
+import com.example.tntntnt.tn_zhihu.util.ThemeState;
 
 /**
  * Created by tntnt on 2016/10/10.
@@ -24,6 +25,11 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        if (ThemeState.readState(this)){
+            setTheme(R.style.TN_Theme_NIGHT);
+        } else {
+            setTheme(R.style.TN_Theme_DAY);
+        }
         setContentView(getLayoutResId());
 
         FragmentManager fm = getSupportFragmentManager();

@@ -10,7 +10,7 @@
         android:icon="@mipmap/ic_la"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/TN_Theme">
+        android:theme="@style/TN_Theme_DAY">
 
         <!-- <activity android:name=".ui.activity.MainActivity"> -->
         <!-- <intent-filter> -->
