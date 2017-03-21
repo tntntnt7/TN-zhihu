@@ -1,7 +1,6 @@
 package com.example.tntntnt.tn_zhihu.ui.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -17,10 +16,11 @@ import com.example.tntntnt.tn_zhihu.api.RecyclerMA;
 import com.example.tntntnt.tn_zhihu.bean.BeanBanner;
 import com.example.tntntnt.tn_zhihu.bean.BeanMAItemA;
 import com.example.tntntnt.tn_zhihu.bean.BeanMAItemB;
-import com.example.tntntnt.tn_zhihu.ui.activity.MainActivity;
 import com.example.tntntnt.tn_zhihu.ui.activity.MainActivity2;
 import com.example.tntntnt.tn_zhihu.util.AllAboutDate;
-import com.sivin.Banner;
+import com.tntntnt.tn_banner.Banner;
+import com.tntntnt.tn_banner.BannerAdapter;
+import com.tntntnt.tn_banner.ImageViewWithTitle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +45,6 @@ public class MAAdapter extends RecyclerView.Adapter<MAAdapter.MAHolder> {
             textView.setTextColor(id);
         }
     }
-    //public static List<TextView> item2TextView;
     public static List<View> item2CardView = new ArrayList<>();
     public static void setItem2Color(int background, int textColor){
         for (View view : item2CardView){
@@ -74,10 +73,6 @@ public class MAAdapter extends RecyclerView.Adapter<MAAdapter.MAHolder> {
                 item1TextView.add((TextView) view);
                 return new MAHolder(view);
             case BeanMAItemB.viewType:
-//                if (listB == null){
-//                    view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_main_one_day_fragment, parent, false);
-//                    return new MAHolder(view);
-//                }
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_2, parent, false);
                 item2CardView.add(view);
                 return new MAHolder(view);
@@ -148,14 +143,26 @@ public class MAAdapter extends RecyclerView.Adapter<MAAdapter.MAHolder> {
 
         public void onBindHead(Object object){
             if ((int)object == 0 && listB != null){
-                banner.setBannerAdapter(new BannerAdapter(listB, mContext));
-                banner.setOnBannerItemClickListener(new Banner.OnBannerItemClickListener() {
+                banner.setBannerAdapter(new BannerAdapter<BeanBanner>(listB, mContext) {
                     @Override
-                    public void onItemClick(int position) {
-                        goNews(STORY_URL + listB.get(position).getId());
+                    public void bind(ImageViewWithTitle imageViewWithTitle, BeanBanner beanBanner) {
+                        imageViewWithTitle.setTextView(beanBanner.getTitle());
+                        imageViewWithTitle.setTextSize(22);
+                        imageViewWithTitle.setTextViewColor(Color.WHITE);
+                        imageViewWithTitle.setTextPadding(40, 0, 40, 80);
+
+                        Glide.with(mContext)
+                                .load(beanBanner.getImage())
+                                .placeholder(R.drawable.img_empty)
+                                .error(R.drawable.img_broken)
+                                .into(imageViewWithTitle.getImageView());
+                    }
+
+                    @Override
+                    public void setItemClick(BeanBanner beanBanner) {
+                        goNews(STORY_URL + beanBanner.getId());
                     }
                 });
-                banner.notifiDataHasChanged();
             }
         }
 

@@ -9,7 +9,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/TN-banner" />
+            <option value="$PROJECT_DIR$/TN_Banner" />
             <option value="$PROJECT_DIR$/app" />
           </set>
         </option>

@@ -11,6 +11,8 @@ import android.widget.RelativeLayout;
 
 import com.example.tntntnt.tn_zhihu.R;
 
+import static android.support.design.R.styleable.FloatingActionButton;
+
 
 /**
  * Created by tntnt on 2017/2/22.
@@ -21,6 +23,7 @@ public class MyFloatingActionButton extends RelativeLayout {
     private FloatingActionButton fbHome;
     private FloatingActionButton fbLeft;
     private FloatingActionButton fbTop;
+
 
     private boolean mFlag;
 
@@ -38,7 +41,6 @@ public class MyFloatingActionButton extends RelativeLayout {
         super(context, attrs, defStyleAttr);
         initView(context);
     }
-
 
     public void initView(Context context){
         fbHome = new FloatingActionButton(context);

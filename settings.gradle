@@ -1,1 +1,1 @@
-include ':app', ':TN-banner'
+include ':app', ':TN_Banner'

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="IndicatorView">
+        <attr name="v_num" format="integer"/>
+        <attr name="isTop" format="boolean"/>
+        <attr name="style" format="string"/>
+
+        <attr name="rect_w" format="integer"/>
+        <attr name="rect_h" format="integer"/>
+
+        <attr name="circle_r" format="integer"/>
+        <attr name="circle_padding" format="integer"/>
+
+        <attr name="textColor_normal" format="color"/>
+        <attr name="textColor_light" format="color"/>
+        <attr name="indicatorColor" format="color"/>
+        <attr name="background_view" format="color"/>
+
+        <attr name="textSize_normal" format="dimension"/>
+        <attr name="textSize_light" format="dimension"/>
+    </declare-styleable>
+</resources>

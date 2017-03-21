@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">知乎日报-TN</string>
 
-    <!--MainActivity-->
+    <!--MainActivity1-->
     <string name="ma_toolbar_title">首页</string>
     <string name="ma_toolbar_item1">今日新闻</string>
     <string name="ma_menu_change_mode_day">日间模式</string>

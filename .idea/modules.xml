@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/TN-banner/TN-banner.iml" filepath="$PROJECT_DIR$/TN-banner/TN-banner.iml" />
       <module fileurl="file://$PROJECT_DIR$/TN-zhihu.iml" filepath="$PROJECT_DIR$/TN-zhihu.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TN_Banner/TN_Banner.iml" filepath="$PROJECT_DIR$/TN_Banner/TN_Banner.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
